@@ -1,0 +1,19 @@
+{
+  "name": "vapi",
+  "version": "1.0.0",
+  "description": "vogel heating & cooling application",
+  "main": "server.js",
+  "scripts": {
+    "test":"nodemon server.js",
+    "store": "node server.js"
+  },
+  "author": "cmv",
+  "license": "ISC",
+  "dependencies": {
+    "child-process": "^1.0.2",
+    "easy-soap-request": "^4.7.0",
+    "nedb": "^1.8.0",
+    "nodemon": "^2.0.19",
+    "xml2js": "^0.4.23"
+  }
+}
