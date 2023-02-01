@@ -34,7 +34,8 @@ var ROUTEstore=(req,res,pak)=>{
     }
   });
 }
-var port = 4050; //port for local host
+
+var PORT = 4050; //port for local host
 
 var server = http.createServer();
 
@@ -57,7 +58,8 @@ server.on('request',(req,res)=>{
 
     ROUTEstore(req,res,vpak).then(
       answr=>{
-        console.log('ENDING');
+
+        console.log('ENDING',vpak);
         res.write(JSON.stringify(vpak));
         res.end();
       }
@@ -65,4 +67,4 @@ server.on('request',(req,res)=>{
   });
 });
 
-server.listen(port);
+server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});
