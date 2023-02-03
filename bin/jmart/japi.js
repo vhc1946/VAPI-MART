@@ -10,6 +10,7 @@ const soapreq = require('easy-soap-request');
 var parsexml = require('xml2js').parseString;
 
 const url = 'https://websvcazure.jonasportal.com/jonasAPI/japi.asmx';
+
 const sampleHeaders = {
   'Content-Type':'text/xml'
 };
@@ -58,6 +59,7 @@ var SENDrequest=(params)=>{
       });
 
     const { headers, body, statusCode } = response;
+    console.log(headers,body,statusCode)
     return res({headers,body,statusCode});
   })();
 
