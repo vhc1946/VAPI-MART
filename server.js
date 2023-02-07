@@ -35,7 +35,7 @@ var ROUTEstore=(req,res,pak)=>{
   });
 }
 
-var PORT = 4050; //port for local host
+var PORT = 80//4050; //port for local host
 
 var server = http.createServer();
 
