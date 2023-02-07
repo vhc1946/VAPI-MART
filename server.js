@@ -45,6 +45,7 @@ server.on('request',(req,res)=>{
   req.on('data',chunk=>{data+=chunk;});
 
   req.on('end',()=>{
+    console.log(data)
     try{data=JSON.parse(data);}catch{data={};}
 
     let vpak=data;
@@ -58,9 +59,16 @@ server.on('request',(req,res)=>{
 
     ROUTEstore(req,res,vpak).then(
       answr=>{
-
-        console.log('ENDING',vpak);
         res.write(JSON.stringify(vpak));
+        res.end();
+      }
+    ).catch(
+      err=>{
+        res.write(JSON.stringify({
+          success:false,
+          msg:err,
+          body:{result:null}
+        }));
         res.end();
       }
     )

@@ -10,7 +10,7 @@ class VAPICollection{
     this.mappath=mappath;
     this.map=map;//holds the raw JSON as object
     this.stores={};
-
+    
     for(let s in this.map.stores){
       this.stores[s]=new VAPIStore(path.join(this.root,this.map.root,this.map.name),s,this.map.stores[s]);
     }
