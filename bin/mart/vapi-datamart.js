@@ -60,7 +60,7 @@ var ADDcollection=(name='')=>{
 //Route Data store
 var ROUTEdatamart=(ask)=>{
   return new Promise((res,rej)=>{
-    console.log(ask);
+    //console.log(ask);
     let {access,pack}=ask.data;
     console.log("DATAMART ASK", ask);
     if(pack.collect && vcollects[pack.collect]){

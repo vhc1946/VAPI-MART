@@ -59,7 +59,7 @@ var SENDrequest=(params)=>{
       });
 
     const { headers, body, statusCode } = response;
-    console.log(headers,body,statusCode)
+    //console.log(headers,body,statusCode)
     return res({headers,body,statusCode});
   })();
 
@@ -89,7 +89,7 @@ var PARSEresponse=(body)=>{
     parsexml(body,(err,result)=>{//parse the body
       let bod = JSON.parse(result['soap:Envelope']['soap:Body'][0]['JonasAPIResponse'][0]['JonasAPIResult']);
       try{bod.data = JSON.parse(bod.data);}catch{}
-      console.log(bod);
+      //console.log(bod);
       bod.success = true; //body marked for intenrnal use
       try{
         if(bod.data!=null && bod.data.errorsFound==0||bod.data.errorsFound==undefined){ //test for errors *MORE NEEDED HERE

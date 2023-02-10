@@ -10,7 +10,7 @@ class VAPICollection{
     this.mappath=mappath;
     this.map=map;//holds the raw JSON as object
     this.stores={};
-    
+
     for(let s in this.map.stores){
       this.stores[s]=new VAPIStore(path.join(this.root,this.map.root,this.map.name),s,this.map.stores[s]);
     }
@@ -27,7 +27,9 @@ class VAPICollection{
         default:{
           if(pack.db!=undefined&&pack.method!=undefined&&pack.options!=undefined){//check for good pack
             this.stores[pack.store].ACCESSstore(pack.db,pack.method,pack.options).then(
-              reciept=>{console.log('RECIEPT',reciept);ask.body=reciept;return resolve(true);}
+              reciept=>{
+                //console.log('RECIEPT',reciept);
+                ask.body=reciept;return resolve(true);}
             );
           }else{ask.msg='Incorrect pack';return resolve(false)}
         }
@@ -39,27 +41,27 @@ class VAPICollection{
     return new Promise((resolve,reject)=>{
       var waiter = null;
       let {access,pack}=ask.data;
-      console.log('ADMIN>',ask)
+      //console.log('ADMIN>',ask)
       console.log(pack)
       switch(pack.method.toUpperCase()){
         case 'ADDSTORE':{
           waiter = this.ADDstore(pack.store);
-          console.log('add store');
+        //  console.log('add store');
           break;
         }
         case 'REMOVESTORE':{
           waiter = this.REMOVEstore(pack.store);
-          console.log('remove store')
+          //console.log('remove store')
           break;
         }
         case 'ADDDATABASE':{
           waiter = this.ADDdatabase(pack.store,pack.db,pack.options.dbrules||undefined);
-          console.log('add database')
+          //console.log('add database')
           break;
         }
         case 'REMOVEDATABASE':{
           waiter = this.REMOVEdatabase(pack.store,pack.db);
-          console.log('remove database')
+          //console.log('remove database')
           break;
         }
       }

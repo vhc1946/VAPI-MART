@@ -12,11 +12,11 @@ INITcollections(path.join(__dirname,'../data/'));
 
 var ROUTEstore=(req,res,pak)=>{
   return new Promise((resolve,reject)=>{
-    console.log('PACK ',pak.data);
+    //console.log('PACK ',pak.data);
     let storereq = pak.data.access.request.toUpperCase() || '';
     switch(storereq){
       case 'MART':{
-        console.log('run mart')
+        //console.log('run mart')
         return resolve(ROUTEdatamart(pak));
         break;
       }
@@ -40,12 +40,12 @@ var PORT = 8080//4050; //port for local host
 var server = http.createServer();
 
 server.on('request',(req,res)=>{
-  console.log('Request from mart');
+  //console.log('Request from mart');
   let data = '';
   req.on('data',chunk=>{data+=chunk;});
 
   req.on('end',()=>{
-    console.log(data)
+    //console.log(data)
     try{data=JSON.parse(data);}catch{data={};}
 
     let vpak=data;

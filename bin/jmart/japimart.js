@@ -5,7 +5,6 @@ var {NEDBconnect} =require('../storage/nedb-connector.js');
 var j2vtables = {
   test:{
     jpack:(data)=>{
-      console.log(data);
       return{
         WebMethod:'GJZJ82J',
         Option:data.option||'download',
@@ -18,7 +17,6 @@ var j2vtables = {
   },
   custom:{
     jpack:(data)=>{
-      console.log(data);
       return{
         WebMethod:'GJZJ82J',
         Option:data.option||'download',
@@ -31,7 +29,6 @@ var j2vtables = {
   },
   flatratebook:{
     jpack:(data)=>{
-      console.log(data)
       return{
         WebMethod:'GJZJ82J',
         Option:'download',
@@ -43,7 +40,6 @@ var j2vtables = {
   },
   wonumber:{
     jpack:(data)=>{
-      console.log(data)
       return{
         WebMethod:'GJZJ82J',
         Option:'download',
@@ -55,7 +51,6 @@ var j2vtables = {
   },
   contracttable:{
     jpack:(data)=>{
-      console.log('SEARCH CUSTOMERS')
       return{
         WebMethod:'GJZJ82J',
         Option:'download',
@@ -67,7 +62,6 @@ var j2vtables = {
   },
   customertable:{
     jpack:(data)=>{
-      console.log('SEARCH CUSTOMERS')
       return{
         WebMethod:'GJZJ82J',
         Option:'download',
@@ -219,7 +213,6 @@ japi.GETj2vtable(
 
 var afbookitem=(fbi={})=>{
   if(!fbi){fbi={}}
-  console.log(fbi)
   return{
     book:fbi.FlatRateBookCode || '',
     task:fbi.TaskID || '',
@@ -263,12 +256,12 @@ var UPDATEfbook=(pak)=>{
                   }
                 }
                 pak.body=ptable;
-                console.log(path.join(__dirname,'../../../data/store/jonas/SERVICE/jfbook.db'));
+                //console.log(path.join(__dirname,'../../../data/store/jonas/SERVICE/jfbook.db'));
                 ptable.push({task:'updated',date:new Date().toISOString()});
                 let jbook = new NEDBconnect(path.join(__dirname,'../../../data/store/jonas/SERVICE/jfbook.db'));
                 jbook.REMOVEdoc({},true).then(
                   rdocs=>{
-                    console.log(rdocs);
+                    //console.log(rdocs);
                     jbook.INSERTdb(ptable).then(
                       indocs=>{console.log(indocs)}
                     );

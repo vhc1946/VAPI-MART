@@ -38,9 +38,7 @@ class NEDBconnect{
 
   REMOVEdoc=(query={},multi=true)=>{
     return new Promise((resolve,reject)=>{
-      console.log(query);
       this.docs.remove(query,{multi:multi},(err,num)=>{
-        console.log(err,'error')
         if(!err){return resolve({err:false,num:num});}
         else{return resolve({err:err,num:0});}
       });

@@ -43,7 +43,7 @@ class VAPIStore{
         runner.then(
           result=>{
 
-            console.log('Result>',result)
+            //console.log('Result>',result)
             reciept.result = result;
             reciept.success = true;
             return res(reciept);
