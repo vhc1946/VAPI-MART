@@ -8,7 +8,8 @@ var {ROUTEdatamart,INITcollections} = require('./bin/mart/vapi-datamart.js');
 
 var japi = require('./bin/jmart/japimart.js');
 
-INITcollections(path.join(__dirname,'../data/'));
+
+INITcollections(path.join(__dirname,process.env.DATAPATH || '../data/'));
 
 var ROUTEstore=(req,res,pak)=>{
   return new Promise((resolve,reject)=>{
@@ -35,7 +36,7 @@ var ROUTEstore=(req,res,pak)=>{
   });
 }
 
-var PORT = 8080//4050; //port for local host
+var PORT = process.env.PORT || 8080//4050; //port for local host
 
 var server = http.createServer();
 
