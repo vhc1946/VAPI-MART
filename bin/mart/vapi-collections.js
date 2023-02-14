@@ -3,15 +3,25 @@ var fs = require('fs'),
 var {VAPIStore}=require('./vapi-store.js');
 
 /* Collection of Data Stores
+
+  This class is going to be created per available (listed) collection within the
+  server. Once initialized the collections can be located in the list by name and
+  then have access to the collection methods of the class.
+
+  SETUP:
+   root : (hold data folder path)
+   mappath : (hold map file path)
+   map : (holds the raw JSON as object)
+   stores : (object holding list of VAPIstore(s))
 */
 class VAPICollection{
   constructor(root,map,mappath){
     this.root=root;
     this.mappath=mappath;
-    this.map=map;//holds the raw JSON as object
+    this.map=map;
     this.stores={};
 
-    for(let s in this.map.stores){
+    for(let s in this.map.stores){//initialize stores
       this.stores[s]=new VAPIStore(path.join(this.root,this.map.root,this.map.name),s,this.map.stores[s]);
     }
   }
@@ -36,7 +46,6 @@ class VAPICollection{
       }
     });
   }
-
   ADMINcollection(ask){
     return new Promise((resolve,reject)=>{
       var waiter = null;
@@ -87,7 +96,6 @@ class VAPICollection{
       });
     })
   }
-
   REMOVEstore(store){
     return new Promise((resolve,reject)=>{
       if(this.map.stores[store]){
@@ -100,7 +108,6 @@ class VAPICollection{
       });
     });
   }
-
   ADDdatabase(store=null,db=null,dbrules={}){
     return new Promise((resolve,reject)=>{
       if(store && this.map.stores[store]){
@@ -140,6 +147,7 @@ class VAPICollection{
       });
     });
   }
+
   EDITstore(store,db){}
 
 }

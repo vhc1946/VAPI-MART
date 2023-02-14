@@ -9,19 +9,23 @@
     admin
     apps
     jonas
-  Each of the above can be described using a VAPIStore()
 
 */
 var path = require('path'),
     fs = require('fs');
 
-var {VAPIStore} =require('./vapi-store.js');
 var {VAPICollection} = require('./vapi-collections.js');
 
 var vcollects = {};
 var storeroot = null;
-//Initialize all collections in passed data folder
-//if empty, create a new datamart
+
+
+
+/* Initialize Collections
+
+   Try to use the passed root to location collection data and initialize that for
+   the servers use.
+*/
 var INITcollections = (root)=>{
   fs.readdir(path.join(root,'info'),(err,dir)=>{
     if(!err){
@@ -57,6 +61,29 @@ var ADDcollection=(name='')=>{
   });
 }
 
+var GETcollectionmap=(name=null)=>{
+  let req = {
+    msg:'Map not found',
+    maps:null,
+    success:false
+  }
+  let maps = {}
+  if(name){
+    if(name=='ALL'){
+      for(let c in vcollects){maps[c] = vcollects[c].map;}
+      req.maps=maps;
+      req.msg='Found all maps';
+      req.success=true;
+    }else if(vcollects[name]){
+      maps[name]=vcollects[name].map;
+      req.maps=maps;
+      req.msg="Found Collection map";
+      req.success=true;
+    }
+  }
+  return req
+}
+
 //Route Data store
 var ROUTEdatamart=(ask)=>{
   return new Promise((res,rej)=>{
@@ -87,23 +114,14 @@ var ROUTEadmindatamart=(ask)=>{
         break;
       }
       case 'COLLECTIONMAPS':{
-        let allmaps={};
-        for(let c in vcollects){
-          allmaps[c] = vcollects[c].map;
-        }
-        ask.body.result=allmaps;
-        ask.msg="found maps";
-        ask.success=true;
+        let {maps,msg,success} = GETcollectionmap(pack.collect ||  null);
+        ask.body.result=maps;
+        ask.msg=msg;
+        ask.success=success;
         return resolve(true);
         break;
       }
-      default:{
-        if('ADDDATABASE'==pack.method.toUpperCase()||'ADDSTORE'==pack.method.toUpperCase()|| 'REMOVESTORE'==pack.method.toUpperCase()  || 'REMOVEDATABASE'==pack.method.toUpperCase()){
-          if(vcollects[pack.collect]){
-            waiter=vcollects[pack.collect].ADMINcollection(ask)
-          }
-        }
-      }
+      default:{waiter=vcollects[pack.collect].ADMINcollection(ask);}
     }
     if(waiter){
       waiter.then(

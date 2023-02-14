@@ -4,10 +4,9 @@ const path = require('path'),
       http = require('http');
 var {exec} = require('child_process');
 
-var {ROUTEdatamart,INITcollections} = require('./bin/mart/vapi-datamart.js');
+var {ROUTEdatamart,ROUTEadmindatamart,INITcollections} = require('./bin/mart/vapi-datamart.js');
 
 var japi = require('./bin/jmart/japimart.js');
-
 
 INITcollections(path.join(__dirname,process.env.DATAPATH || '../data/'));
 
@@ -23,6 +22,10 @@ var ROUTEstore=(req,res,pak)=>{
       }
       case 'JMART':{
         return resolve(japi.GETj2vtable(pak,true));
+        break;
+      }
+      case 'ADMIN':{
+        return resolve(ROUTEadmindatamart(pak));
         break;
       }
       default:{
