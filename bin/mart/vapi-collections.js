@@ -64,7 +64,8 @@ class VAPICollection{
           break;
         }
         case 'ADDDATABASE':{
-          waiter = this.ADDdatabase(pack.store,pack.db,pack.options.dbrules||undefined);
+          pack.options = pack.options!=undefined
+          waiter = this.ADDdatabase(pack.store,pack.db,pack.options);
           //console.log('add database')
           break;
         }
@@ -108,7 +109,7 @@ class VAPICollection{
       });
     });
   }
-  ADDdatabase(store=null,db=null,dbrules={}){
+  ADDdatabase(store=null,db=null,options={}){
     return new Promise((resolve,reject)=>{
       if(store && this.map.stores[store]){
         if(db && !this.map.stores[store][db]){
@@ -118,7 +119,7 @@ class VAPICollection{
             map:{}
           }
           for(let opt in this.map.stores[store]){
-            if(dbrules[opt]){this.map.stores[store][db][opt]=dbrules[opt]}
+            if(options[opt]){this.map.stores[store][db][opt]=options[opt]}
           }
           this.stores[store]=new VAPIStore(path.join(this.root,this.map.root,this.map.name),store,this.map.stores[store]);
         }else{return resolve({msg:'DB does exist or was left blank',success:false});}
