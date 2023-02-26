@@ -16,7 +16,7 @@ var ROUTEstore=(req,res,pak)=>{
     let storereq = pak.data.access.request.toUpperCase() || '';
     switch(storereq){
       case 'MART':{
-        //console.log('run mart')
+        console.log('run mart')
         return resolve(ROUTEdatamart(pak));
         break;
       }
@@ -53,6 +53,7 @@ server.on('request',(req,res)=>{
     try{data=JSON.parse(data);}catch{data={};}
 
     let vpak=data;
+    console.log('MART PACK',vpak);
     let log = { //prep request log
       process:'COREprocess',
       info:{
@@ -60,9 +61,10 @@ server.on('request',(req,res)=>{
         cip:req.connection.remoteAddress,
       }
     }
-
+    console.log(log);
     ROUTEstore(req,res,vpak).then(
       answr=>{
+        console.log('DONE',answr);
         res.write(JSON.stringify(vpak));
         res.end();
       }

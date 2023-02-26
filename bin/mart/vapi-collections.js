@@ -36,6 +36,7 @@ class VAPICollection{
         }
         default:{
           if(pack.db!=undefined&&pack.method!=undefined&&pack.options!=undefined){//check for good pack
+            console.log('PACK',pack)
             this.stores[pack.store].ACCESSstore(pack.db,pack.method,pack.options).then(
               reciept=>{
                 //console.log('RECIEPT',reciept);
@@ -109,6 +110,7 @@ class VAPICollection{
       });
     });
   }
+  
   ADDdatabase(store=null,db=null,options={}){
     return new Promise((resolve,reject)=>{
       if(store && this.map.stores[store]){
@@ -148,9 +150,6 @@ class VAPICollection{
       });
     });
   }
-
-  EDITstore(store,db){}
-
 }
 
 module.exports={

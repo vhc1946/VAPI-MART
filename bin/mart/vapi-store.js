@@ -84,6 +84,7 @@ class VAPIStore{
   }
   QUERYstore=(db,opts)=>{
     return new Promise((res,rej)=>{
+      console.log('QUERY',opts)
       if(!opts.query){return res({doc:[],err:'bad options'})}
       return res(db.QUERYdb(opts.query));
     });
