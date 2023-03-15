@@ -34,11 +34,11 @@ class VAPIStore{
         appdb.docs.loadDatabase();
         let runner;
         switch(method.toUpperCase()){
-          case 'update':{runner = this.UPDATEstore(appdb,options);break;}
-          case 'insert':{runner = this.INSERTstore(appdb,options);break;}
-          case 'remove':{runner = this.REMOVEstore(appdb,options);break;}
-          case 'query':{runner = this.QUERYstore(appdb,options);break;}
-          case 'map':{runner = this.GETmap(appdb,options);break}
+          case 'UPDATE':{runner = this.UPDATEstore(appdb,options);break;}
+          case 'INSERT':{runner = this.INSERTstore(appdb,options);break;}
+          case 'REMOVE':{runner = this.REMOVEstore(appdb,options);break;}
+          case 'QUERY':{runner = this.QUERYstore(appdb,options);break;}
+          case 'MAP':{runner = this.GETmap(appdb,options);break}
           default:{return res(reciept)}
         }
         runner.then(
