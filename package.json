@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev":"nodemon server.js",
+    "server":"node server.js",
     "store": "node server.js"
   },
   "author": "cmv",

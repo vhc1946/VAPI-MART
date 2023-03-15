@@ -21,7 +21,7 @@ var ROUTEstore=(req,res,pak)=>{
         break;
       }
       case 'JMART':{
-        return resolve(japi.GETj2vtable(pak,true));
+        return resolve(japi.ROUTEjmart(pak));
         break;
       }
       case 'ADMIN':{

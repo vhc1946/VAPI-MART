@@ -234,7 +234,8 @@ var UPDATEfbook=(pak)=>{
         option:'download',
         template:'WO_FlatRateBookPricing_tbl'
     }
-    console.log(pak)
+    console.log(pak);
+    console.log('UPDATING THE FLATRATEBOOK')
     pak.data.pack=fbdescopts
     GETj2vtable(pak).then(//get description table
       tres=>{
@@ -267,7 +268,6 @@ var UPDATEfbook=(pak)=>{
                     );
                   }
                 )
-
                 //store ptable in datamart
 
               return resolve(true);
@@ -281,7 +281,32 @@ var UPDATEfbook=(pak)=>{
   });
 }
 
+var ROUTEjmart=(ask={})=>{
+  return new Promise((resolve,reject)=>{
+    let {access,pack}=ask.data;
+    let waiter = null;
+    switch(pack.method.toUpperCase()){
+      case 'UPDATEFBOOK':{
+        ask.msg='Updating the Jonas Flat Rate Books';
+        waiter = UPDATEfbook(ask);
+        break;
+      }
+      default:{
+        waiter = GETj2vtable(ask,true);
+      }
+    }
+    if(waiter){
+      waiter.then(
+        answr=>{
+          ask.msg = answr.msg;
+          ask.success = answr.success;
+          return resolve(true);
+        }
+      )
+    }else{ask.success=false;ask.msg = 'Could not find method';return resolve(false);}
+  });
+}
 module.exports={
   GETj2vtable,
-  UPDATEfbook
+  ROUTEjmart
 }

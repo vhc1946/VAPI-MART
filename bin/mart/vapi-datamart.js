@@ -108,7 +108,7 @@ var ROUTEadmindatamart=(ask)=>{
         break;
       }
       case 'REMOVECOLLECTION':{
-        ask.msg='Removing Collections not setup',
+        ask.msg='Removing Collections not setup';
         ask.success=false;
         return resolve(false);
         break;
