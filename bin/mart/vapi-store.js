@@ -91,7 +91,7 @@ class VAPIStore{
     });
   }
   GETmap=(db)=>{
-    return new Promise((res,rej)=>{
+    return new Promise((resolve,reject)=>{
       return resolve({...this.dbmap[db].map||null});
     })
   }
