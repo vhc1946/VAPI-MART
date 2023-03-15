@@ -38,7 +38,7 @@ class VAPIStore{
           case 'INSERT':{runner = this.INSERTstore(appdb,options);break;}
           case 'REMOVE':{runner = this.REMOVEstore(appdb,options);break;}
           case 'QUERY':{runner = this.QUERYstore(appdb,options);break;}
-          case 'MAP':{runner = this.GETmap(appdb,options);break}
+          case 'MAP':{runner = this.GETmap(db);break}
           default:{return res(reciept)}
         }
         runner.then(
@@ -90,9 +90,9 @@ class VAPIStore{
       return res(db.QUERYdb(opts.query));
     });
   }
-  GETmap=(db,opts)=>{
+  GETmap=(db)=>{
     return new Promise((res,rej)=>{
-      return resolve({map:this.dbmap||null});
+      return resolve({...this.dbmap[db].map||null});
     })
   }
 }
