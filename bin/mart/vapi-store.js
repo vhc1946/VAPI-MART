@@ -33,11 +33,12 @@ class VAPIStore{
       if(appdb){
         appdb.docs.loadDatabase();
         let runner;
-        switch(method){
+        switch(method.toUpperCase()){
           case 'update':{runner = this.UPDATEstore(appdb,options);break;}
           case 'insert':{runner = this.INSERTstore(appdb,options);break;}
           case 'remove':{runner = this.REMOVEstore(appdb,options);break;}
           case 'query':{runner = this.QUERYstore(appdb,options);break;}
+          case 'map':{runner = this.GETmap(appdb,options);break}
           default:{return res(reciept)}
         }
         runner.then(
@@ -88,6 +89,11 @@ class VAPIStore{
       if(!opts.query){return res({doc:[],err:'bad options'})}
       return res(db.QUERYdb(opts.query));
     });
+  }
+  GETmap=(db,opts)=>{
+    return new Promise((res,rej)=>{
+      return resolve({map:this.dbmap||null});
+    })
   }
 }
 
