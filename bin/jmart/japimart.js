@@ -282,22 +282,30 @@ var UPDATEfbook=(pak)=>{
 }
 
 var ROUTEjmart=(ask={})=>{
+  console.log("ROOT OF ROUTE")
   return new Promise((resolve,reject)=>{
+    console.log(ask)
     let {access,pack}=ask.data;
     let waiter = null;
-    switch(pack.method.toUpperCase()){
+    console.log(pack, "PACK")
+    //pack.method = "test"
+    /*switch(pack.method.toUpperCase()){
       case 'UPDATEFBOOK':{
+        console.log("UPDATE F BOOK", pack)
         ask.msg='Updating the Jonas Flat Rate Books';
         waiter = UPDATEfbook(ask);
         break;
       }
       default:{
+        console.log("DEFAULT", pack)
         waiter = GETj2vtable(ask,true);
       }
-    }
+    }*/
+    waiter = GETj2vtable(ask,true);
     if(waiter){
       waiter.then(
         answr=>{
+          console.log("ANSWER", waiter)
           ask.msg = answr.msg;
           ask.success = answr.success;
           return resolve(true);
