@@ -19,6 +19,11 @@ class VAPIStore{
     this.root=storeroot;
     this.store=storename;
     this.dbmap=storemap;
+
+    this.dbs={};
+    for(let d in this.dbmap){
+      this.CONNECTstore(d);
+    }
   }
 
   ACCESSstore=(db,method,options)=>{
@@ -29,21 +34,21 @@ class VAPIStore{
         result:null
       };
 
-      let appdb = this.CONNECTstore(db);
-      if(appdb){
-        appdb.docs.loadDatabase();
+      let store = this.CONNECTstore(db);
+
+      //let appdb = this.CONNECTstore(db);
+      if(store){
         let runner;
         switch(method.toUpperCase()){
-          case 'UPDATE':{runner = this.UPDATEstore(appdb,options);break;}
-          case 'INSERT':{runner = this.INSERTstore(appdb,options);break;}
-          case 'REMOVE':{runner = this.REMOVEstore(appdb,options);break;}
-          case 'QUERY':{runner = this.QUERYstore(appdb,options);break;}
+          case 'UPDATE':{runner = this.UPDATEstore(store,options);break;}
+          case 'INSERT':{runner = this.INSERTstore(store,options);break;}
+          case 'REMOVE':{runner = this.REMOVEstore(store,options);break;}
+          case 'QUERY':{runner = this.QUERYstore(store,options);break;}
           case 'MAP':{runner = this.GETmap(db);break}
           default:{return res(reciept)}
         }
         runner.then(
           result=>{
-
             //console.log('Result>',result)
             reciept.result = result;
             reciept.success = true;
@@ -55,12 +60,22 @@ class VAPIStore{
   }
 
   CONNECTstore=(db)=>{
+    if(this.dbs[db]){return this.dbs[db];}
+    else if(this.dbmap[db]!=undefined){
+      this.dbs[db]=new NEDBconnect(
+        {filename:path.join(this.root,this.store,this.dbmap[db].filename)},
+        this.dbmap[db].ensure
+      );
+      return this.dbs[db]
+    }else{return false;}
+    /*
     if(this.dbmap[db]!=undefined){
       return new NEDBconnect(
         {filename:path.join(this.root,this.store,this.dbmap[db].filename)},
         this.dbmap[db].ensure
       );
     }else{return null;}
+    */
   }
 
   UPDATEstore=(db,opts)=>{

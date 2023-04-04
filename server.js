@@ -8,7 +8,7 @@ var {ROUTEdatamart,ROUTEadmindatamart,INITcollections} = require('./bin/mart/vap
 
 var japi = require('./bin/jmart/japimart.js');
 
-INITcollections(path.join(__dirname,process.env.DATAPATH || '../data/'));
+INITcollections(path.join(__dirname,process.env.DATAPATH?process.env.DATAPATH:'../data/'));
 
 var ROUTEstore=(req,res,pak)=>{
   return new Promise((resolve,reject)=>{
