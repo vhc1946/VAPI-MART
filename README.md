@@ -4,9 +4,12 @@ CALLING -> request:'MART' ----------------------------------------------------->
 
 pack:{
   collect: 'collection name'
-  store: 'store name'
   db: 'database name'
+
+  store: 'store name'
+
   methd: 'QUERY | REMOVE | INSERT | UPDATE'
+  
   options: {
     QUERY:{
       query:{id:'itemid'}
