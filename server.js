@@ -1,12 +1,12 @@
 //Libraries used in project
 const http = require('http');
-const {STARTrouting,ROUTEstore}=require('./bin/martrouter.js');
+const {STARTrouter,ROUTEstore}=require('./bin/martrouter.js');
 
 const PORT = process.env.PORT || 8080//4050; //port for local host
 
 var server = http.createServer();
 
-STARTrouting(()=>{server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});})
+STARTrouter(()=>{server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});})
 
 server.on('request',(req,res)=>{
   //console.log('Request from mart');
