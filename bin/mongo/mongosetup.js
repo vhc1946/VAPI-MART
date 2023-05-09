@@ -1,0 +1,20 @@
+//TEST Credentials 
+const connectInfo ={
+    user: 'christianv',
+    pswrd: 'AMracing5511',
+    db:'',
+    cluster:'cluster0'
+}
+
+//TEST connection string
+let creds = `mongodb+srv://${connectInfo.user}:${connectInfo.pswrd}@${connectInfo.cluster}.0awfqdk.mongodb.net/${connectInfo.db}?retryWrites=true&w=majority`
+
+/**
+ * 
+ * @param {Function} cback -> to run after the connection to the database
+ * @param {String} uri -> The connection string to pass to MongoDB
+ * @returns -> the vhp client used to make connections
+ */
+module.exports = CONNECTmongo=(cback=()=>{return false},uri=creds)=>{
+    return vmclient = new requrire('./mongoapi.js').VHPMongoClient(uri,cback);
+}

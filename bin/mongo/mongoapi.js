@@ -1,9 +1,6 @@
 const mongoose = require('mongoose'),
-        path = require('path'),
-        fs = require('fs');
-
-const schemas = require('../models/vhp-schemas');
-class VHPMongoClient{
+      schemas = require('./models/vhp-schemas');
+module.exports = class VHPMongoClient{
     /**
      * Will attempt to connect to a mongodb server based on the
      * uri passed. You can pass function to afterConnect to run
@@ -31,7 +28,7 @@ class VHPMongoClient{
      * Employee_Account
      * 
      * @param {{db:String,collect:String,method:String,options:Object}} pack
-     * @returns 
+     * @returns {success:Boolean, msg:'', result:{}}
      */
     ROUTErequest(pack){
         return new Promise((resolve,reject)=>{
@@ -51,11 +48,11 @@ class VHPMongoClient{
                                     case 'UPDATE':{console.log('update');return resolve(this.UPDATEdocs(dbcursor,pack));break;}
                                     case 'INSERT':{console.log('insert');return resolve(this.INSERTdocs(dbcursor,pack));break;}
                                 }
-                                return resolve({success:false,msg:'Could not resolve method',results:null});
-                            }else{return resolve({success:false,msg:'No Options',results:null})}
-                    }else{return resolve({success:false,msg:'Not a collection',results:null});}
-                }else{return resolve({success:false,msg:'Not a database',results:null})}
-            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',results:null})})
+                                return resolve({success:false,msg:'Could not resolve method',result:null});
+                            }else{return resolve({success:false,msg:'No Options',result:null})}
+                    }else{return resolve({success:false,msg:'Not a collection',result:null});}
+                }else{return resolve({success:false,msg:'Not a database',result:null})}
+            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
         });
     }
 
@@ -109,7 +106,6 @@ class VHPMongoClient{
         });
     }
 
-
     CHECKforDB(db){
         return new Promise((resolve,reject)=>{
             this.admin.listDatabases().then(res=>{
@@ -121,5 +117,3 @@ class VHPMongoClient{
         })
     }
 }
-module.exports=VHPMongoClient;
-

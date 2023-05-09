@@ -1,18 +1,12 @@
 //Libraries used in project
-const path = require('path'),
-      fs = require('fs'),
-      http = require('http');
-var {exec} = require('child_process');
+const http = require('http');
+const {STARTrouting,ROUTEstore}=require('./bin/martrouter.js');
 
-var {ROUTEdatamart,ROUTEadmindatamart,INITcollections} = require('./bin/mart/vapi-datamart.js');
-
-var japi = require('./bin/jmart/japimart.js');
-
-//INITcollections(path.join(__dirname,process.env.DATAPATH?process.env.DATAPATH:'../data/'));//delete
-
-var PORT = process.env.PORT || 8080//4050; //port for local host
+const PORT = process.env.PORT || 8080//4050; //port for local host
 
 var server = http.createServer();
+
+STARTrouting(()=>{server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});})
 
 server.on('request',(req,res)=>{
   //console.log('Request from mart');
@@ -29,15 +23,15 @@ server.on('request',(req,res)=>{
       process:'COREprocess',
       info:{
         url:req.url,
-        cip:req.connection.remoteAddress,
+        cip:req.connection.remoteAddress
       }
     }
-    console.log(log);
     ROUTEstore(req,res,vpak).then(
       answr=>{
         console.log('DONE',answr);
-        res.write(JSON.stringify(vpak));
+        res.write(JSON.stringify(vpak));//may not want to do this, return only result of request and strip rest of pack
         res.end();
+        //Log event
       }
     ).catch(
       err=>{
@@ -51,5 +45,3 @@ server.on('request',(req,res)=>{
     )
   });
 });
-
-server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});
