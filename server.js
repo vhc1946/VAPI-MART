@@ -8,36 +8,7 @@ var {ROUTEdatamart,ROUTEadmindatamart,INITcollections} = require('./bin/mart/vap
 
 var japi = require('./bin/jmart/japimart.js');
 
-INITcollections(path.join(__dirname,process.env.DATAPATH?process.env.DATAPATH:'../data/'));
-
-var ROUTEstore=(req,res,pak)=>{
-  return new Promise((resolve,reject)=>{
-    //console.log('PACK ',pak.data);
-    let storereq = pak.data.access.request.toUpperCase() || '';
-    switch(storereq){
-      case 'MART':{
-        console.log('run mart')
-        return resolve(ROUTEdatamart(pak));
-        break;
-      }
-      case 'JMART':{
-        return resolve(japi.ROUTEjmart(pak));
-        break;
-      }
-      case 'ADMIN':{
-        return resolve(ROUTEadmindatamart(pak));
-        break;
-      }
-      default:{
-        pak.success=false;
-        pak.msg="Bad Request";
-        res.write(JSON.stringify(pak))
-        res.end();
-        return resolve(pak);
-      }
-    }
-  });
-}
+//INITcollections(path.join(__dirname,process.env.DATAPATH?process.env.DATAPATH:'../data/'));//delete
 
 var PORT = process.env.PORT || 8080//4050; //port for local host
 
