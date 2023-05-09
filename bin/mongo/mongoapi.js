@@ -37,6 +37,7 @@ class VHPMongoClient{
             let pack = vpak.pack;
             console.log('Mart ask >',pack);
             this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
+                console.log('DB exists',dbexists);
                 if(dbexists){
                     //split collection OR check for '_' in collection field
                     populates = pack.collect.split('_');
@@ -114,6 +115,7 @@ class VHPMongoClient{
     CHECKforDB(db){
         return new Promise((resolve,reject)=>{
             this.admin.listDatabases().then(res=>{
+                console.log(db,res.databases);
                 if(res.databases){
                     for(let x=0,l=res.databases.length;x<l;x++){if(db===res.databases[x].name){return resolve(true);}}
                     return resolve(false);
