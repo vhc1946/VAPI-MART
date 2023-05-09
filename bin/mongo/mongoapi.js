@@ -17,7 +17,6 @@ class VHPMongoClient{
             console.log('Connected');
             this.connection = conn;
             this.admin = this.connection.db.admin();
-        this.CHECKforDB('Company').then(answr=>console.log('COMAPNY >',answr))
             afterConnect()
         }).catch(err=>{console.log(err)})
     }
@@ -34,7 +33,10 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            this.CHECKforDB('COMPANY').then(dbexists=>{
+
+
+            console.log('Mart ask >',vpak);//this does show, nothing runs below this
+            this.CHECKforDB(vpak.pack.db).then(dbexists=>{
                 console.log('DB exists',dbexists);
                 if(dbexists){
                     //split collection OR check for '_' in collection field

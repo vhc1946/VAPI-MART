@@ -10,7 +10,7 @@ const connectInfo ={
 //TEST connection string
 let creds = `mongodb+srv://${connectInfo.user}:${connectInfo.pswrd}@${connectInfo.cluster}.0awfqdk.mongodb.net/${connectInfo.db}?retryWrites=true&w=majority`
 
-let vhpclient = new VHPMongoClient(creds);
+var vhpclient = new VHPMongoClient(creds);
 /**
  * 
  * @param {Function} cback -> to run after the connection to the database

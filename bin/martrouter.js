@@ -3,8 +3,8 @@ var {vhpclient}=require('./mongo/mongosetup.js');
 var japi = require('./jmart/japimart.js');
 
 //holds all routes, used in ROUTEstore
-var routes = {
-    MART:()=>{return{success:false,msg:'Mongo Mart not connected',result:null}},
+const routes = {
+    MART:vhpclient.ROUTErequest,
     JMART:japi.ROUTEjmart
 }
 
@@ -18,7 +18,7 @@ var routes = {
 var ROUTEstore=(req,res,pak)=>{
     return new Promise((resolve,reject)=>{
         let storereq = pak.access.request.toUpperCase() || '';
-        if(routes[storereq]){console.log('routing');return resolve(routes[storereq](pak))}//check for route
+        if(routes[storereq]){console.log('routing >',storereq);return resolve(routes[storereq](pak))}//check for route
         else{
             pak.success=false;
             pak.msg="Bad Request";
@@ -29,9 +29,9 @@ var ROUTEstore=(req,res,pak)=>{
 var STARTrouter=(cback=()=>{return false})=>{
     return new Promise((resolve,reject)=>{
         //check if mongoclient.ROUTErequest
-        routes.MART = vhpclient.ROUTErequest;//assign mongo client router to MART route
+        //routes.MART = vhpclient.ROUTErequest;//assign mongo client router to MART route
         cback();
-        return resolve();
+        return resolve(true);
     });
 }
 
