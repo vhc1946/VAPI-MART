@@ -43,18 +43,18 @@ class VHPMongoClient{
                     pack.collect=populates.shift();
                     if(schemas[pack.collect]){//check that pack.collect has a schema
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
-                            if(pack.options!=undefined){
-                                let routed = null;
-                                
-                                switch(pack.method!=undefined?pack.method.toUpperCase():''){
-                                    case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
-                                    case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
-                                    case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,pack);break;}
-                                    case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,pack);break;}
-                                }
-                                if(routed){routed.then(result=>{return resolve({success:true,msg:'Was Ran',result:result})})}
-                                else{return resolve({success:false,msg:'Could not resolve method',result:null});}
-                            }else{return resolve({success:false,msg:'No Options',result:null})}
+                        if(pack.options!=undefined){
+                            let routed = null;
+                            
+                            switch(pack.method!=undefined?pack.method.toUpperCase():''){
+                                case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
+                                case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
+                                case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,pack);break;}
+                                case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,pack);break;}
+                            }
+                            if(routed){routed.then(result=>{return resolve({success:true,msg:'Was Ran',result:result})})}
+                            else{return resolve({success:false,msg:'Could not resolve method',result:null});}
+                        }else{return resolve({success:false,msg:'No Options',result:null})}
                     }else{return resolve({success:false,msg:'Not a collection',result:null});}
                 }else{return resolve({success:false,msg:'Not a database',result:null})}
             }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
