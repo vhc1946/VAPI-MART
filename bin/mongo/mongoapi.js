@@ -34,10 +34,10 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            console.log('Mart adfadfaask >',vpak.pack.db);
-            //this.CHECKforDB(pack.db).then(dbexists=>{
+            console.log('Mart adfadfaask >',vpak);
+            this.CHECKforDB(vpak.pack.db).then(dbexists=>{
                 //console.log('DB exists',dbexists);
-                if(true){//dbexists){
+                if(dbexists){
                     //split collection OR check for '_' in collection field
                     populates = vpak.pack.collect.split('_');
                     vpak.pack.collect=populates.shift();
@@ -45,12 +45,12 @@ class VHPMongoClient{
                     if(schemas[vpak.pack.collect]){//check that pack.collect has a schema
                         dbcursor = this.connection.useDb(vpak.pack.db,{useCache:true}).model(vpak.pack.collect,schemas[vpak.pack.collect]);
         
-                    console.log('in here')
-                    if(vpak.pack.options!=undefined){
+                        console.log('in here')
+                        if(vpak.pack.options!=undefined){
                             let routed = null;
                             console.log('runing method')
                             switch(vpak.pack.method!=undefined?vpak.pack.method.toUpperCase():''){
-                                case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
+                                case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,vpak.pack,populates);break;}
                                 case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,vpak.pack);break;}
                                 case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,vpak.pack);break;}
                                 case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,vpak.pack);break;}
@@ -60,7 +60,7 @@ class VHPMongoClient{
                         }else{return resolve({success:false,msg:'No Options',result:null})}
                     }else{return resolve({success:false,msg:'Not a collection',result:null});}
                 }else{return resolve({success:false,msg:'Not a database',result:null})}
-            //})//.catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
+            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
         });
     }
 
