@@ -13,11 +13,11 @@ class VHPMongoClient{
         let startup = mongoose.createConnection(uri).asPromise();
         this.connection = null; //hold original conneciton
         this.admin = null; //hold admin access
-        this.CHECKforDB('Company').then(answr=>console.log('COMAPNY >',answr))
         startup.then(conn=>{
             console.log('Connected');
             this.connection = conn;
             this.admin = this.connection.db.admin();
+        this.CHECKforDB('Company').then(answr=>console.log('COMAPNY >',answr))
             afterConnect()
         }).catch(err=>{console.log(err)})
     }
