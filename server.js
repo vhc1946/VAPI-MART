@@ -29,7 +29,7 @@ server.on('request',(req,res)=>{
     ROUTEstore(req,res,vpak).then(
       answr=>{
         console.log('DONE',answr);
-        res.write(JSON.stringify(vpak));//may not want to do this, return only result of request and strip rest of pack
+        res.write(JSON.stringify(answr));//may not want to do this, return only result of request and strip rest of pack
         res.end();
         //Log event
       }
