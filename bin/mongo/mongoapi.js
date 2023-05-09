@@ -36,7 +36,7 @@ class VHPMongoClient{
             var populates = []; //holds an array of items to collect at once
             console.log('Mart adfadfaask >',vpak);
             this.CHECKforDB(vpak.pack.db).then(dbexists=>{
-                //console.log('DB exists',dbexists);
+                console.log('DB exists',dbexists);
                 if(dbexists){
                     //split collection OR check for '_' in collection field
                     populates = vpak.pack.collect.split('_');
@@ -44,8 +44,6 @@ class VHPMongoClient{
                     console.log(vpak.pack.collect)
                     if(schemas[vpak.pack.collect]){//check that pack.collect has a schema
                         dbcursor = this.connection.useDb(vpak.pack.db,{useCache:true}).model(vpak.pack.collect,schemas[vpak.pack.collect]);
-        
-                        console.log('in here')
                         if(vpak.pack.options!=undefined){
                             let routed = null;
                             console.log('runing method')
@@ -123,7 +121,7 @@ class VHPMongoClient{
                     for(let x=0,l=res.databases.length;x<l;x++){if(db===res.databases[x].name){return resolve(true);}}
                     return resolve(false);
                 }else{return resolve(false);}
-            }).catch(err=>{return resolve(false);})
+            })//.catch(err=>{return resolve(false);})
         })
     }
 }
