@@ -125,4 +125,5 @@ class VHPMongoClient{
         })
     }
 }
-module.exports={VHPMongoClient}
+
+module.exports=VHPMongoClient
