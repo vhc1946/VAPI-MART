@@ -30,6 +30,7 @@ var STARTrouter=(cback=()=>{return false})=>{
     return new Promise((resolve,reject)=>{
         //check if mongoclient.ROUTErequest
         routes.MART = vhpclient.ROUTErequest;//assign mongo client router to MART route
+        cback();
         return resolve();
     });
 }
