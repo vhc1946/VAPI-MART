@@ -36,9 +36,9 @@ class VHPMongoClient{
             var populates = []; //holds an array of items to collect at once
             let pack = vpak.pack;
             console.log('Mart ask >',pack.db);
-            this.CHECKforDB(pack.db).then(dbexists=>{
+            //this.CHECKforDB(pack.db).then(dbexists=>{
                 console.log('DB exists',dbexists);
-                if(dbexists){
+                if(true){//dbexists){
                     //split collection OR check for '_' in collection field
                     populates = pack.collect.split('_');
                     pack.collect=populates.shift();
@@ -58,7 +58,7 @@ class VHPMongoClient{
                         }else{return resolve({success:false,msg:'No Options',result:null})}
                     }else{return resolve({success:false,msg:'Not a collection',result:null});}
                 }else{return resolve({success:false,msg:'Not a database',result:null})}
-            })//.catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
+            //})//.catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
         });
     }
 
