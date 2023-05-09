@@ -39,13 +39,16 @@ class VHPMongoClient{
             //this.CHECKforDB(pack.db).then(dbexists=>{
                 //console.log('DB exists',dbexists);
                 if(true){//dbexists){
-                    console.log('in here')
                     //split collection OR check for '_' in collection field
                     populates = pack.collect.split('_');
                     pack.collect=populates.shift();
+                    console.log(pack.collect)
                     if(schemas[pack.collect]){//check that pack.collect has a schema
+                    console.log('in here')
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
-                        if(pack.options!=undefined){
+                        
+                    console.log('in here2')
+                    if(pack.options!=undefined){
                             let routed = null;
                             console.log('runing method')
                             switch(pack.method!=undefined?pack.method.toUpperCase():''){
