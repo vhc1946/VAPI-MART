@@ -1,11 +1,11 @@
 
-var {vhpclient}=require('./mongo/mongosetup.js');
+var vhpclient=require('./mongo/mongosetup.js');
 var japi = require('./jmart/japimart.js');
 
 //holds all routes, used in ROUTEstore
 const routes = {
-    MART:vhpclient.ROUTErequest,
-    JMART:japi.ROUTEjmart
+    //MART:vhpclient.ROUTErequest,
+    //JMART:japi.ROUTEjmart
 }
 
 /**
