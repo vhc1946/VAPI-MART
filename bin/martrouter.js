@@ -17,9 +17,8 @@ var routes = {
  */
 var ROUTEstore=(req,res,pak)=>{
     return new Promise((resolve,reject)=>{
-        //console.log('PACK ',pak.data);
         let storereq = pak.access.request.toUpperCase() || '';
-        if(routes[storereq]){return resolve(routes[storereq](pak))}//check for route
+        if(routes[storereq]){console.log('routing');return resolve(routes[storereq](pak))}//check for route
         else{
             pak.success=false;
             pak.msg="Bad Request";

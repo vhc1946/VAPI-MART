@@ -34,11 +34,8 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            let pack = vpak.pack!=undefined?vpak.pack:{
-                db:'',
-                collect:'',
-                options:{}
-            }
+            let pack = vpak.pack;
+            console.log('Mart ask >',pack);
             this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
                 if(dbexists){
                     //split collection OR check for '_' in collection field
@@ -48,6 +45,7 @@ class VHPMongoClient{
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
                             if(pack.options!=undefined){
                                 let routed = null;
+                                
                                 switch(pack.method!=undefined?pack.method.toUpperCase():''){
                                     case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
                                     case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
