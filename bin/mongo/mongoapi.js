@@ -36,7 +36,7 @@ class VHPMongoClient{
             var populates = []; //holds an array of items to collect at once
             let pack = vpak.pack;
             console.log('Mart ask >',pack);
-            this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
+            this.CHECKforDB(pack.db).then(dbexists=>{
                 console.log('DB exists',dbexists);
                 if(dbexists){
                     //split collection OR check for '_' in collection field
