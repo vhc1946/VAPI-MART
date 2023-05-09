@@ -30,10 +30,11 @@ class VHPMongoClient{
      * @param {{db:String,collect:String,method:String,options:Object}} pack
      * @returns 
      */
-    ROUTErequest(pack){
+    ROUTErequest(pak){
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
+            var pack = pak.pack;
             this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
                 if(dbexists){
                     //split collection OR check for '_' in collection field
