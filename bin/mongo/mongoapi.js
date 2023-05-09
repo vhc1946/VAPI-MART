@@ -34,11 +34,6 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            let pack = vpak.data!=undefined?vpak.data:{
-                db:'',
-                collect:'',
-                options:{}
-            }
             this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
                 if(dbexists){
                     //split collection OR check for '_' in collection field
