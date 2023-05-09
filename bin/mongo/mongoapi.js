@@ -13,6 +13,7 @@ class VHPMongoClient{
         let startup = mongoose.createConnection(uri).asPromise();
         this.connection = null; //hold original conneciton
         this.admin = null; //hold admin access
+
         startup.then(conn=>{
             console.log('Connected');
             this.connection = conn;
@@ -27,39 +28,31 @@ class VHPMongoClient{
      * Employee_Account
      * 
      * @param {{db:String,collect:String,method:String,options:Object}} pack
-     * @returns {success:Boolean, msg:'', result:{}}
+     * @returns 
      */
-    ROUTErequest(vpak){
+    ROUTErequest(pack){
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-
-
-            console.log('Mart ask >',vpak);//this does show, nothing runs below this
-            this.CHECKforDB(vpak.pack.db).then(dbexists=>{
-                console.log('DB exists',dbexists);
+            this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
                 if(dbexists){
                     //split collection OR check for '_' in collection field
-                    populates = vpak.pack.collect.split('_');
-                    vpak.pack.collect=populates.shift();
-                    console.log(vpak.pack.collect)
-                    if(schemas[vpak.pack.collect]){//check that pack.collect has a schema
-                        dbcursor = this.connection.useDb(vpak.pack.db,{useCache:true}).model(vpak.pack.collect,schemas[vpak.pack.collect]);
-                        if(vpak.pack.options!=undefined){
-                            let routed = null;
-                            console.log('runing method')
-                            switch(vpak.pack.method!=undefined?vpak.pack.method.toUpperCase():''){
-                                case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,vpak.pack,populates);break;}
-                                case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,vpak.pack);break;}
-                                case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,vpak.pack);break;}
-                                case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,vpak.pack);break;}
-                            }
-                            if(routed){routed.then(result=>{return resolve({success:true,msg:'Was Ran',result:result})})}
-                            else{return resolve({success:false,msg:'Could not resolve method',result:null});}
-                        }else{return resolve({success:false,msg:'No Options',result:null})}
-                    }else{return resolve({success:false,msg:'Not a collection',result:null});}
-                }else{return resolve({success:false,msg:'Not a database',result:null})}
-            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
+                    populates = pack.collect.split('_');
+                    pack.collect=populates.shift();
+                    if(schemas[pack.collect]){//check that pack.collect has a schema
+                        dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
+                            if(pack.options!=undefined){
+                                switch(pack.method!=undefined?pack.method.toUpperCase():''){
+                                    case 'QUERY':{console.log('query');return resolve(this.QUERYdocs(dbcursor,pack,populates));break;}
+                                    case 'REMOVE':{console.log('remove');return resolve(this.REMOVEdocs(dbcursor,pack));break;}
+                                    case 'UPDATE':{console.log('update');return resolve(this.UPDATEdocs(dbcursor,pack));break;}
+                                    case 'INSERT':{console.log('insert');return resolve(this.INSERTdocs(dbcursor,pack));break;}
+                                }
+                                return resolve({success:false,msg:'Could not resolve method',results:null});
+                            }else{return resolve({success:false,msg:'No Options',results:null})}
+                    }else{return resolve({success:false,msg:'Not a collection',results:null});}
+                }else{return resolve({success:false,msg:'Not a database',results:null})}
+            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',results:null})})
         });
     }
 
@@ -112,18 +105,17 @@ class VHPMongoClient{
             }else{return resolve({success:false,msg:'bad options',result:null})}
         });
     }
-    CHECKfor(db){
+
+
+    CHECKforDB(db){
         return new Promise((resolve,reject)=>{
-            console.log('checking admin')
             this.admin.listDatabases().then(res=>{
-                console.log(db,res.databases);
                 if(res.databases){
                     for(let x=0,l=res.databases.length;x<l;x++){if(db===res.databases[x].name){return resolve(true);}}
                     return resolve(false);
                 }else{return resolve(false);}
-            })//.catch(err=>{return resolve(false);})
+            }).catch(err=>{return resolve(false);})
         })
     }
 }
-
-module.exports={VHPMongoClient}
+module.exports=VHPMongoClient;

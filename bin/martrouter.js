@@ -1,5 +1,5 @@
 
-var {VHPMongoClient}=require('./mongo/mongoapi.js');
+const VHPMongoClient=require('./mongo/mongoapi.js');
 var {creds}=require('./mongo/mongosetup.js')
 var japi = require('./jmart/japimart.js');
 

@@ -6,8 +6,6 @@ const PORT = process.env.PORT || 8080//4050; //port for local host
 
 var server = http.createServer();
 
-STARTrouter(()=>{server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});})
-
 server.on('request',(req,res)=>{
   //console.log('Request from mart');
   let data = '';
@@ -45,3 +43,4 @@ server.on('request',(req,res)=>{
     )*/
   });
 });
+STARTrouter(()=>{server.listen(PORT,()=>{console.log('VAPI Core Listening: ',PORT)});})
