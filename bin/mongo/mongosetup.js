@@ -16,4 +16,4 @@ let creds = `mongodb+srv://${connectInfo.user}:${connectInfo.pswrd}@${connectInf
  * @param {String} uri -> The connection string to pass to MongoDB
  * @returns -> the vhp client used to make connections
  */
-module.exports = new VHPMongoClient(creds)
+module.exports = {creds}

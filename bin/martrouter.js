@@ -1,5 +1,6 @@
 
-var vhpclient=require('./mongo/mongosetup.js');
+var {VHPMongoClient}=require('./mongo/mongoapi.js');
+var {creds}=require('./mongo/mongosetup.js')
 var japi = require('./jmart/japimart.js');
 
 //holds all routes, used in ROUTEstore
@@ -7,7 +8,7 @@ const routes = {
     //MART:vhpclient.ROUTErequest,
     //JMART:japi.ROUTEjmart
 }
-
+var mongorunner = new VHPMongoClient(creds);
 /**
  * 
  * @param {Object} req -> request from http server
@@ -19,7 +20,7 @@ var ROUTEstore=(req,res,pak)=>{
     return new Promise((resolve,reject)=>{
         let storereq = pak.access.request.toUpperCase() || '';
         switch(storereq){
-            case 'MART':{return resolve(vhpclient.ROUTErequest(pak));break;}
+            case 'MART':{return resolve(mongorunner.ROUTErequest(pak));break;}
             case 'JMART':{return resolve(japi.ROUTEjmart(pak));break;}
             default:{
                 pak.success=false;
