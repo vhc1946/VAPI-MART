@@ -34,27 +34,26 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            let pack = vpak.pack;
-            console.log('Mart adfadfaask >',pack.db);
+            console.log('Mart adfadfaask >',vpak.pack.db);
             //this.CHECKforDB(pack.db).then(dbexists=>{
                 //console.log('DB exists',dbexists);
                 if(true){//dbexists){
                     //split collection OR check for '_' in collection field
-                    populates = pack.collect.split('_');
-                    pack.collect=populates.shift();
-                    console.log(pack.collect)
-                    if(schemas[pack.collect]){//check that pack.collect has a schema
-                        dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
+                    populates = vpak.pack.collect.split('_');
+                    vpak.pack.collect=populates.shift();
+                    console.log(vpak.pack.collect)
+                    if(schemas[vpak.pack.collect]){//check that pack.collect has a schema
+                        dbcursor = this.connection.useDb(vpak.pack.db,{useCache:true}).model(vpak.pack.collect,schemas[vpak.pack.collect]);
         
                     console.log('in here')
-                    if(pack.options!=undefined){
+                    if(vpak.pack.options!=undefined){
                             let routed = null;
                             console.log('runing method')
-                            switch(pack.method!=undefined?pack.method.toUpperCase():''){
+                            switch(vpak.pack.method!=undefined?vpak.pack.method.toUpperCase():''){
                                 case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
-                                case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
-                                case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,pack);break;}
-                                case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,pack);break;}
+                                case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,vpak.pack);break;}
+                                case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,vpak.pack);break;}
+                                case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,vpak.pack);break;}
                             }
                             if(routed){routed.then(result=>{return resolve({success:true,msg:'Was Ran',result:result})})}
                             else{return resolve({success:false,msg:'Could not resolve method',result:null});}
