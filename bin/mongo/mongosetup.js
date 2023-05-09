@@ -1,3 +1,4 @@
+const {VHPMongoClient}=require('./mongoapi.js');
 //TEST Credentials 
 const connectInfo ={
     user: 'christianv',
@@ -15,6 +16,6 @@ let creds = `mongodb+srv://${connectInfo.user}:${connectInfo.pswrd}@${connectInf
  * @param {String} uri -> The connection string to pass to MongoDB
  * @returns -> the vhp client used to make connections
  */
-module.exports = CONNECTmongo=(cback=()=>{return false},uri=creds)=>{
-    return vmclient = new requrire('./mongoapi.js').VHPMongoClient(uri,cback);
+module.exports = (cback=()=>{return false},uri=creds)=>{
+    return new VHPMongoClient(uri,cback);
 }

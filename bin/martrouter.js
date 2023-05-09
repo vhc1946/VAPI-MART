@@ -28,7 +28,7 @@ var ROUTEstore=(req,res,pak)=>{
     });
 }
 var STARTrouter=(cback=()=>{return false})=>{
-    return Promise((resolve,reject)=>{
+    return new Promise((resolve,reject)=>{
         let mongoclient = CONNECTmongo(cback);//connect to mongo
         //check if mongoclient.ROUTErequest
         routes.MART = mongoclient.ROUTErequest;//assign mongo client router to MART route

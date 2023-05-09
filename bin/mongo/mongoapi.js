@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
       schemas = require('./models/vhp-schemas');
-module.exports = class VHPMongoClient{
+class VHPMongoClient{
     /**
      * Will attempt to connect to a mongodb server based on the
      * uri passed. You can pass function to afterConnect to run
@@ -117,3 +117,4 @@ module.exports = class VHPMongoClient{
         })
     }
 }
+module.exports={VHPMongoClient}
