@@ -18,11 +18,14 @@ const routes = {
 var ROUTEstore=(req,res,pak)=>{
     return new Promise((resolve,reject)=>{
         let storereq = pak.access.request.toUpperCase() || '';
-        if(routes[storereq]){console.log('routing >',storereq);return resolve(routes[storereq](pak))}//check for route
-        else{
-            pak.success=false;
-            pak.msg="Bad Request";
-            return resolve(pak);
+        switch(storereq){
+            case 'MART':{return resolve(vhpclient.ROUTErequest(pak));break;}
+            case 'JMART':{return resolve(japi.ROUTEjmart(pak));break;}
+            default:{
+                pak.success=false;
+                pak.msg="Bad Request";
+                return resolve(pak);
+            }
         }
     });
 }

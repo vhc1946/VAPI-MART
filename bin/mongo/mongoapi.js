@@ -21,18 +21,6 @@ class VHPMongoClient{
         }).catch(err=>{console.log(err)})
     }
 
-    CHECKfor(db){
-        return new Promise((resolve,reject)=>{
-            console.log('checking admin')
-            this.admin.listDatabases().then(res=>{
-                console.log(db,res.databases);
-                if(res.databases){
-                    for(let x=0,l=res.databases.length;x<l;x++){if(db===res.databases[x].name){return resolve(true);}}
-                    return resolve(false);
-                }else{return resolve(false);}
-            })//.catch(err=>{return resolve(false);})
-        })
-    }
     /**
      * Here are some notes on this
      * 
@@ -48,7 +36,7 @@ class VHPMongoClient{
 
 
             console.log('Mart ask >',vpak);//this does show, nothing runs below this
-            this.CHECKfor(vpak.pack.db).then(dbexists=>{
+            this.CHECKforDB(vpak.pack.db).then(dbexists=>{
                 console.log('DB exists',dbexists);
                 if(dbexists){
                     //split collection OR check for '_' in collection field
@@ -123,6 +111,18 @@ class VHPMongoClient{
                 })
             }else{return resolve({success:false,msg:'bad options',result:null})}
         });
+    }
+    CHECKfor(db){
+        return new Promise((resolve,reject)=>{
+            console.log('checking admin')
+            this.admin.listDatabases().then(res=>{
+                console.log(db,res.databases);
+                if(res.databases){
+                    for(let x=0,l=res.databases.length;x<l;x++){if(db===res.databases[x].name){return resolve(true);}}
+                    return resolve(false);
+                }else{return resolve(false);}
+            })//.catch(err=>{return resolve(false);})
+        })
     }
 }
 module.exports={VHPMongoClient}
