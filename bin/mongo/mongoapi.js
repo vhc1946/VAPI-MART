@@ -30,10 +30,15 @@ class VHPMongoClient{
      * @param {{db:String,collect:String,method:String,options:Object}} pack
      * @returns {success:Boolean, msg:'', result:{}}
      */
-    ROUTErequest(pack){
+    ROUTErequest(vpak){
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
+            let pack = vpak.data!=undefined?vpak.data:{
+                db:'',
+                collect:'',
+                options:{}
+            }
             this.CHECKforDB(pack.db!=undefined?pack.db:'').then(dbexists=>{
                 if(dbexists){
                     //split collection OR check for '_' in collection field
@@ -42,13 +47,15 @@ class VHPMongoClient{
                     if(schemas[pack.collect]){//check that pack.collect has a schema
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
                             if(pack.options!=undefined){
+                                let routed = null;
                                 switch(pack.method!=undefined?pack.method.toUpperCase():''){
-                                    case 'QUERY':{console.log('query');return resolve(this.QUERYdocs(dbcursor,pack,populates));break;}
-                                    case 'REMOVE':{console.log('remove');return resolve(this.REMOVEdocs(dbcursor,pack));break;}
-                                    case 'UPDATE':{console.log('update');return resolve(this.UPDATEdocs(dbcursor,pack));break;}
-                                    case 'INSERT':{console.log('insert');return resolve(this.INSERTdocs(dbcursor,pack));break;}
+                                    case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
+                                    case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
+                                    case 'UPDATE':{console.log('update');routed=this.UPDATEdocs(dbcursor,pack);break;}
+                                    case 'INSERT':{console.log('insert');routed=this.INSERTdocs(dbcursor,pack);break;}
                                 }
-                                return resolve({success:false,msg:'Could not resolve method',result:null});
+                                if(routed){routed.then(result=>{return resolve({success:true,msg:'Was Ran',result:result})})}
+                                else{return resolve({success:false,msg:'Could not resolve method',result:null});}
                             }else{return resolve({success:false,msg:'No Options',result:null})}
                     }else{return resolve({success:false,msg:'Not a collection',result:null});}
                 }else{return resolve({success:false,msg:'Not a database',result:null})}
