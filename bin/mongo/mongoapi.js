@@ -39,6 +39,7 @@ class VHPMongoClient{
             //this.CHECKforDB(pack.db).then(dbexists=>{
                 //console.log('DB exists',dbexists);
                 if(true){//dbexists){
+                    console.log('in here')
                     //split collection OR check for '_' in collection field
                     populates = pack.collect.split('_');
                     pack.collect=populates.shift();
@@ -46,7 +47,7 @@ class VHPMongoClient{
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
                         if(pack.options!=undefined){
                             let routed = null;
-                            
+                            console.log('runing method')
                             switch(pack.method!=undefined?pack.method.toUpperCase():''){
                                 case 'QUERY':{console.log('query');routed=this.QUERYdocs(dbcursor,pack,populates);break;}
                                 case 'REMOVE':{console.log('remove');routed=this.REMOVEdocs(dbcursor,pack);break;}
