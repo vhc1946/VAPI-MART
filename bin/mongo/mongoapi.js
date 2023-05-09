@@ -114,6 +114,7 @@ class VHPMongoClient{
 
     CHECKforDB(db){
         return new Promise((resolve,reject)=>{
+            console.log('checking admin')
             this.admin.listDatabases().then(res=>{
                 console.log(db,res.databases);
                 if(res.databases){
