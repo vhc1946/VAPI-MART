@@ -58,7 +58,7 @@ class VHPMongoClient{
                         }else{return resolve({success:false,msg:'No Options',result:null})}
                     }else{return resolve({success:false,msg:'Not a collection',result:null});}
                 }else{return resolve({success:false,msg:'Not a database',result:null})}
-            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
+            })//.catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
         });
     }
 
