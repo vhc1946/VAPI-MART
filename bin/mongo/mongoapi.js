@@ -13,7 +13,7 @@ class VHPMongoClient{
         let startup = mongoose.createConnection(uri).asPromise();
         this.connection = null; //hold original conneciton
         this.admin = null; //hold admin access
-
+        this.CHECKforDB('Company').then(answr=>console.log('COMAPNY >',answr))
         startup.then(conn=>{
             console.log('Connected');
             this.connection = conn;
@@ -34,7 +34,6 @@ class VHPMongoClient{
         return new Promise((resolve,reject)=>{
             var dbcursor = null; //holds the database to be request from
             var populates = []; //holds an array of items to collect at once
-            console.log('Mart adfadfaask >',vpak);
             this.CHECKforDB(vpak.pack.db).then(dbexists=>{
                 console.log('DB exists',dbexists);
                 if(dbexists){
