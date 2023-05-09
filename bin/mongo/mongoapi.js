@@ -49,11 +49,11 @@ class VHPMongoClient{
                                     case 'UPDATE':{console.log('update');return resolve(this.UPDATEdocs(dbcursor,pack));break;}
                                     case 'INSERT':{console.log('insert');return resolve(this.INSERTdocs(dbcursor,pack));break;}
                                 }
-                                return resolve({success:false,msg:'Could not resolve method',results:null});
-                            }else{return resolve({success:false,msg:'No Options',results:null})}
-                    }else{return resolve({success:false,msg:'Not a collection',results:null});}
-                }else{return resolve({success:false,msg:'Not a database',results:null})}
-            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',results:null})})
+                                return resolve({success:false,msg:'Could not resolve method',result:null});
+                            }else{return resolve({success:false,msg:'No Options',result:null})}
+                    }else{return resolve({success:false,msg:'Not a collection',result:null});}
+                }else{return resolve({success:false,msg:'Not a database',result:null})}
+            }).catch(err=>{return resolve({success:false,msg:'Failed to resolve request',result:null})})
         });
     }
 
