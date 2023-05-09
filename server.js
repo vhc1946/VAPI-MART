@@ -33,7 +33,7 @@ server.on('request',(req,res)=>{
         res.end();
         //Log event
       }
-    ).catch(
+    )/*.catch(
       err=>{
         res.write(JSON.stringify({
           success:false,
@@ -42,6 +42,6 @@ server.on('request',(req,res)=>{
         }));
         res.end();
       }
-    )
+    )*/
   });
 });
