@@ -44,10 +44,9 @@ class VHPMongoClient{
                     pack.collect=populates.shift();
                     console.log(pack.collect)
                     if(schemas[pack.collect]){//check that pack.collect has a schema
-                    console.log('in here')
                         dbcursor = this.connection.useDb(pack.db,{useCache:true}).model(pack.collect,schemas[pack.collect]);
-                        
-                    console.log('in here2')
+        
+                    console.log('in here')
                     if(pack.options!=undefined){
                             let routed = null;
                             console.log('runing method')
