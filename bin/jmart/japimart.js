@@ -316,5 +316,6 @@ var ROUTEjmart=(ask={})=>{
 }
 module.exports={
   GETj2vtable,
-  ROUTEjmart
+  ROUTEjmart,
+  UPDATEfbook
 }

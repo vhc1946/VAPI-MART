@@ -15,6 +15,7 @@ var path = require('path'),
     fs = require('fs');
 
 var {VAPICollection} = require('./vapi-collections.js');
+const {UPDATEfbook}=require('../jmart/japimart.js');
 
 var vcollects = {};
 var storeroot = null;
@@ -119,6 +120,11 @@ var ROUTEadmindatamart=(ask)=>{
         ask.msg=msg;
         ask.success=success;
         return resolve(true);
+        break;
+      }
+      case 'UPDATEJONASSPB':{
+        console.log('')
+        waiter = UPDATEfbook(pack);
         break;
       }
       default:{waiter=vcollects[pack.collect].ADMINcollection(ask);}
