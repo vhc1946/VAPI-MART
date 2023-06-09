@@ -198,18 +198,6 @@ var JAPIroutes = (req,res,vpak,log)=>{
 
   });
 }
-/*
-japi.GETj2vtable(
-  {
-    WebMethod:'GJZJ82J',
-    Option:'download',
-    CompanyCode:'01',
-    Template:'WO_WorkOrder',
-    WHERE: [{"OP":"=","SalesCategoryCode": "300"}]
-  },false).then(
-    result=>{console.log('done >',result)}
-  )
-*/
 
 var afbookitem=(fbi={})=>{
   if(!fbi){fbi={}}
