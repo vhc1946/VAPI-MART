@@ -19,17 +19,21 @@ class NEDBconnect{
   UPDATEdb=(query={},update={},options={})=>{
     return new Promise((resolve,reject)=>{
       this.docs.update(query,update,options,(err,numrep)=>{
-        if(numrep>0){resolve({numrep:numrep,err:null})}
+        if(numrep>0){
+          this.docs.persistence.compactDatafile();
+          resolve({numrep:numrep,err:null})}
         else{resolve({numrep:numrep,err:err})}
       });
-    })
+    });
   }
 
   INSERTdb=(docs)=>{
     return new Promise((resolve,reject)=>{
       if(docs){
         this.docs.insert(docs,(err,doc)=>{
-          if(doc){resolve({doc:doc,err:null})}
+          if(doc){
+          this.docs.persistence.compactDatafile();
+          resolve({doc:doc,err:null})}
           else{resolve({doc:null,err:err})}
         })
       }
@@ -39,7 +43,9 @@ class NEDBconnect{
   REMOVEdoc=(query={},multi=true)=>{
     return new Promise((resolve,reject)=>{
       this.docs.remove(query,{multi:multi},(err,num)=>{
-        if(!err){return resolve({err:false,num:num});}
+        if(!err){
+          this.docs.persistence.compactDatafile();
+          return resolve({err:false,num:num});}
         else{return resolve({err:err,num:0});}
       });
     });
