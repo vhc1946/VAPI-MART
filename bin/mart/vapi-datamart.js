@@ -123,7 +123,7 @@ var ROUTEadmindatamart=(ask)=>{
         break;
       }
       case 'UPDATEJONASSPB':{
-        console.log('')
+        console.log('Updating ')
         waiter = UPDATEfbook(pack);
         break;
       }
