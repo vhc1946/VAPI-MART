@@ -124,7 +124,7 @@ var ROUTEadmindatamart=(ask)=>{
       }
       case 'UPDATEJONASSPB':{
         console.log('Updating ')
-        waiter = UPDATEfbook(pack);
+        waiter = UPDATEfbook(ask);
         break;
       }
       default:{waiter=vcollects[pack.collect].ADMINcollection(ask);}

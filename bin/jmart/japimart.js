@@ -215,15 +215,16 @@ var UPDATEfbook=(pak)=>{
         table:'custom',
         option:'download',
         template:'WO_FlatRateBookHeader_tbl'
-
     }
     let fbpriceopts={
         table:'custom',
         option:'download',
         template:'WO_FlatRateBookPricing_tbl'
     }
+
     console.log(pak);
-    console.log('UPDATING THE FLATRATEBOOK')
+    console.log('UPDATING THE FLATRATEBOOK');
+    
     pak.data.pack=fbdescopts
     GETj2vtable(pak).then(//get description table
       tres=>{
@@ -276,19 +277,6 @@ var ROUTEjmart=(ask={})=>{
     let {access,pack}=ask.data;
     let waiter = null;
     console.log(pack, "PACK")
-    //pack.method = "test"
-    /*switch(pack.method.toUpperCase()){
-      case 'UPDATEFBOOK':{
-        console.log("UPDATE F BOOK", pack)
-        ask.msg='Updating the Jonas Flat Rate Books';
-        waiter = UPDATEfbook(ask);
-        break;
-      }
-      default:{
-        console.log("DEFAULT", pack)
-        waiter = GETj2vtable(ask,true);
-      }
-    }*/
     waiter = GETj2vtable(ask,true);
     if(waiter){
       waiter.then(
