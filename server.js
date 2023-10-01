@@ -62,7 +62,6 @@ server.on('request',(req,res)=>{
       }
     }
     
-    console.log(log);
     ROUTEstore(req,res,vpak).then(
       answr=>{
         console.log('DONE',answr);

@@ -89,7 +89,7 @@ var GETcollectionmap=(name=null)=>{
 var ROUTEdatamart=(ask)=>{
   return new Promise((res,rej)=>{
     //console.log(ask);
-    let {access,pack}=ask.data;
+    let {access,pack}=ask;
     console.log("DATAMART ASK", ask);
     if(pack.collect && vcollects[pack.collect]){
       vcollects[pack.collect].ROUTEcollection(ask).then(

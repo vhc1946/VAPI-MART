@@ -274,7 +274,7 @@ var ROUTEjmart=(ask={})=>{
   console.log("ROOT OF ROUTE")
   return new Promise((resolve,reject)=>{
     console.log(ask)
-    let {access,pack}=ask.data;
+    let {access,pack}=ask;
     let waiter = null;
     console.log(pack, "PACK")
     waiter = GETj2vtable(ask,true);

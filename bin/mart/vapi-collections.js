@@ -28,7 +28,7 @@ class VAPICollection{
 
   ROUTEcollection(ask){
     return new Promise((resolve,reject)=>{
-      let {access,pack}=ask.data;
+      let {access,pack}=ask;
       switch(pack.method){
         case 'template':{
           ask.body=this.map;
