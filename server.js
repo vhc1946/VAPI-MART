@@ -71,6 +71,7 @@ server.on('request',(req,res)=>{
       }
     ).catch(
       err=>{
+        console.log('ERROR >',err);
         res.write(JSON.stringify({
           success:false,
           msg:err,
