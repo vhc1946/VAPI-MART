@@ -40,9 +40,12 @@ class VAPICollection{
             this.stores[pack.store].ACCESSstore(pack.db,pack.method,pack.options).then(
               reciept=>{
                 //console.log('RECIEPT',reciept);
+                ask.success = reciept.success;
                 ask.body=reciept;return resolve(true);}
             );
-          }else{ask.msg='Incorrect pack';return resolve(false)}
+          }else{
+            ask.success = false;
+            ask.msg='Incorrect pack';return resolve(false)}
         }
       }
     });
