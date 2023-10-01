@@ -13,7 +13,7 @@ INITcollections(path.join(__dirname,process.env.DATAPATH?process.env.DATAPATH:'.
 var ROUTEstore=(req,res,pak)=>{
   return new Promise((resolve,reject)=>{
     //console.log('PACK ',pak.data);
-    let storereq = pak.data.access.request.toUpperCase() || '';
+    let storereq = pak.access.request.toUpperCase() || '';
     switch(storereq){
       case 'MART':{
         console.log('run mart')
