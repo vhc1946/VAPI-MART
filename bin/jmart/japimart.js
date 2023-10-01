@@ -174,9 +174,9 @@ var GETj2vtable = (pak,all=true)=>{
       success:false,
       table:[]
     };
-    if(j2vtables[pak.data.pack.table]){
-      let params = j2vtables[pak.data.pack.table].jpack(pak.data.pack); //get params
-      let map = j2vtables[pak.data.pack.table].map;
+    if(j2vtables[pak.pack.table]){
+      let params = j2vtables[pak.pack.table].jpack(pak.data.pack); //get params
+      let map = j2vtables[pak.pack.table].map;
       if(params){japi.QUERYtable(params?params:null,map?map:undefined,all).then(
         result=>{
           pak.body=result;
