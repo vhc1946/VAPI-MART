@@ -175,7 +175,7 @@ var GETj2vtable = (pak,all=true)=>{
       table:[]
     };
     if(j2vtables[pak.pack.table]){
-      let params = j2vtables[pak.pack.table].jpack(pak.data.pack); //get params
+      let params = j2vtables[pak.pack.table].jpack(pak.pack); //get params
       let map = j2vtables[pak.pack.table].map;
       if(params){japi.QUERYtable(params?params:null,map?map:undefined,all).then(
         result=>{
@@ -225,12 +225,12 @@ var UPDATEfbook=(pak)=>{
     console.log(pak);
     console.log('UPDATING THE FLATRATEBOOK');
     
-    pak.data.pack=fbdescopts
+    pak.pack=fbdescopts
     GETj2vtable(pak).then(//get description table
       tres=>{
         let dtable = pak.body.table;
         if(tres){
-          pak.data.pack=fbpriceopts;
+          pak.pack=fbpriceopts;
           pak.body={};
           GETj2vtable(pak).then(
             pres=>{
